@@ -1,0 +1,1 @@
+delete durable FSNT_NMS

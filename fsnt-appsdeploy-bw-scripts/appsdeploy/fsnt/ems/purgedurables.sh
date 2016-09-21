@@ -1,0 +1,1 @@
+purge durable FSNT_NMS

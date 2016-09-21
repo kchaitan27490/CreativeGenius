@@ -1,0 +1,1 @@
+show durable FSNT_NMS
