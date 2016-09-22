@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="ArtifactBuilder" default="info">
+	<target name="info">
+		<echo>Artifact Builder is about to go to work </echo>
+		<input message="enter xml file name that has to be modified"  addproperty="filename"/>
+		<replace file="${filename}" propertyFile="F:\Jetblue\Automation\Data\FSNT_QA.properties">
+		<!--	<replacefilter token="tcp://JBECLLEMSI01:7222" property="QAJMSServer"/>-->
+			<replacefilter token="svc_INT_FSNT" property="QAJMSUser"/>
+			<replacefilter token="IntFSNTSSLQueueConnectionFactory" property="QueueConnFactory"/>
+			<replacefilter token="IntFSNTSSLTopicConnectionFactory" property="TopicConnFactory"/>
+			<replacefilter token="svc_int_fsnt" property="DBUser"/>
+			<replacefilter token="FSNTINT" property="DBName"/>
+		</replace>
+		<replaceregexp file="${filename}"
+                         match="tcp://JBECLLEMSI01+"
+                         replace="tcp://JBECLLEMSQ01.jblab.net"
+                         byline="true"/> 
+		<echo>The QA Artifacts for ${filename} are prepared </echo>
+	</target>
+</project>
