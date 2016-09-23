@@ -2,8 +2,16 @@
 <project name="ArtifactBuilder" default="info">
 	<target name="info">
 		<echo>Artifact Builder is about to go to work </echo>
-		<input message="enter xml file name that has to be modified"  addproperty="filename"/>
-		<replace file="${filename}" propertyFile="F:\Jetblue\Automation\Data\FSNT_QA.properties">
+		<input message="enter xml file name with full path that has to be modified"  addproperty="filename"/>
+		<mkdir dir="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-scripts\appsdeploy\fsnt\deployconfig"/>
+		<copy todir="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-scripts\appsdeploy\fsnt\deployconfig">
+			<fileset file="..\InputFiles\FSNT_INT_1.0\fsnt-appsdeploy-bw-scripts\appsdeploy\fsnt\deployconfig\${filename}.xml"/>
+		</copy>
+		<mkdir dir="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-binaries\appsdeploy\fsnt\ears"/>
+		<copy todir="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-binaries\appsdeploy\fsnt\ears">
+			<fileset file="..\InputFiles\FSNT_INT_1.0\fsnt-appsdeploy-bw-binaries\appsdeploy\fsnt\ears\${filename}.ear"/>
+		</copy>
+		<replace file="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-scripts\appsdeploy\fsnt\deployconfig\${filename}.xml" propertyFile="FSNT_QA.properties">
 		<!--	<replacefilter token="tcp://JBECLLEMSI01:7222" property="QAJMSServer"/>-->
 			<replacefilter token="svc_INT_FSNT" property="QAJMSUser"/>
 			<replacefilter token="IntFSNTSSLQueueConnectionFactory" property="QueueConnFactory"/>
@@ -11,7 +19,7 @@
 			<replacefilter token="svc_int_fsnt" property="DBUser"/>
 			<replacefilter token="FSNTINT" property="DBName"/>
 		</replace>
-		<replaceregexp file="${filename}"
+		<replaceregexp file="..\InputFiles\FSNT_QA_1.0\fsnt-appsdeploy-bw-scripts\appsdeploy\fsnt\deployconfig\${filename}.xml"
                          match="tcp://JBECLLEMSI01+"
                          replace="tcp://JBECLLEMSQ01.jblab.net"
                          byline="true"/> 
